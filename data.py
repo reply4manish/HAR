@@ -18,7 +18,7 @@ class ReadData:
     def load_files(self, file_path='', file_name=''):
         data_x_ = []
         data_y_ = []
-        offset = 256 - 256 * self.data_overlap
+        offset = int(256 - 256 * self.data_overlap)
         file_name_path = os.path.join(file_path, file_name)
         print(file_name_path)
         data_frame = pd.read_csv(file_name_path, sep=',', names=self.all_data_properties)
@@ -39,8 +39,8 @@ class ReadData:
 
     def read_data(self):
         for directory in os.listdir(self.folder_path):
-            train_x, train_y = self.load_file(os.path.join(self.folder_path, directory),
-                                              file_name=directory + "dev2.csv")
+            train_x, train_y = self.load_files(os.path.join(self.folder_path, directory),
+                                               file_name=directory + "dev2.csv")
             self.data_x.append(train_x)
             self.data_y.append(train_y)
         self.data_x = np.vstack(self.data_x)
