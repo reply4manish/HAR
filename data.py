@@ -4,7 +4,6 @@ import pandas as pd
 
 
 class ReadData:
-
     def __init__(self, folder_paths, data_props, use_data_props, window, label, data_overlap):
         self.folder_path = folder_paths
         self.all_data_properties = data_props
@@ -38,6 +37,9 @@ class ReadData:
         return data_x_, data_y_
 
     def read_data(self):
+        """
+        we only want to read values for the right hand sensor, so dev2.csv
+        """
         for directory in os.listdir(self.folder_path):
             train_x, train_y = self.load_files(os.path.join(self.folder_path, directory),
                                                file_name=directory + "dev2.csv")

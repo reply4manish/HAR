@@ -21,9 +21,9 @@ class LSTMModel:
         self.y_train = self.y_train - 1
         self.y_train = to_categorical(self.y_train)
         time_steps, n_features, n_outputs = self.x_train.shape[1], self.x_train.shape[2], self.y_train.shape[1]
-        self.model.add(LSTM(200, input_shape=(time_steps, n_features)))
+        self.model.add(LSTM(100, input_shape=(time_steps, n_features)))
         self.model.add(Dropout(0.30))
-        self.model.add(Dense(200, activation='relu'))
+        self.model.add(Dense(100, activation='relu'))
         self.model.add(Dense(n_outputs, activation='softmax'))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         history = self.model.fit(self.x_train, self.y_train, epochs=self.epochs, batch_size=self.batch_size,
