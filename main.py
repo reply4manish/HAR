@@ -1,5 +1,7 @@
 from data import ReadData
 from LSTM import LSTMModel
+from convLSTM import ConvLSTM
+import tensorflow as tf
 import os
 
 if __name__ == "__main__":
@@ -16,11 +18,18 @@ if __name__ == "__main__":
     overlap = 0.50
     reader = ReadData(path, all_props, training_props, window_size, truth_label, overlap)
     reader.read_data()
-
+    LSTM_flag = False
+    conv_lstm_flag = True
     # try LSTM
-    verbose, epochs, batch_size = 1, 50, 32
-    lstm_nn = LSTMModel(reader.data_x, reader.data_y, verbose, epochs, batch_size)
-    lstm_nn.model_train("plots/training/" + "lstm_ep50_bs32_layer100_0.67accu.png")
-    lstm_nn.model_test()
+    if LSTM_flag:
+        verbose, epochs, batch_size = 1, 50, 32
+        lstm_nn = LSTMModel(reader.data_x, reader.data_y, verbose, epochs, batch_size)
+        lstm_nn.model_train("plots/training/" + "lstm_ep50_bs32_layer100.png")
+        lstm_nn.model_test()
 
     # try convLSTM
+    if conv_lstm_flag:
+        verbose, epochs, batch_size = 1, 30, 32
+        conv_lstm = ConvLSTM(reader.data_x, reader.data_y, verbose, epochs, batch_size)
+        conv_lstm.model_train("plots/training/" + "conv_lstm_ep30_bs32_filter64.png")
+        conv_lstm.model_test()

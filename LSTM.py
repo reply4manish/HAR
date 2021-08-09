@@ -21,7 +21,8 @@ class LSTMModel:
         self.y_train = self.y_train - 1
         self.y_train = to_categorical(self.y_train)
         time_steps, n_features, n_outputs = self.x_train.shape[1], self.x_train.shape[2], self.y_train.shape[1]
-        self.model.add(LSTM(100, input_shape=(time_steps, n_features)))
+        self.model.add(LSTM(100,  return_sequences=True, input_shape=(time_steps, n_features)))
+        self.model.add(LSTM(100))
         self.model.add(Dropout(0.30))
         self.model.add(Dense(100, activation='relu'))
         self.model.add(Dense(n_outputs, activation='softmax'))
@@ -30,10 +31,10 @@ class LSTMModel:
                                  verbose=self.verbose)
         plot_progress(save_fig_path, history)
 
-    def model_test(self, ):
+    def model_test(self):
         # convert y to one hot encoding
         # remove zero offset
         self.y_test = self.y_test - 1
         self.y_test = to_categorical(self.y_test)
         _, accuracy = self.model.evaluate(self.x_test, self.y_test, batch_size=self.batch_size, verbose=self.verbose)
-        print("Accuracy on test data {}:", accuracy)
+        print("Accuracy on test data {}:".format(accuracy))
