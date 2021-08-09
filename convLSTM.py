@@ -29,8 +29,9 @@ class ConvLSTM:
         # define model
         self.model.add(ConvLSTM2D(filters=64, kernel_size=(1, 3), activation='relu',
                                   input_shape=(n_steps, 1, n_length, n_features), return_sequences=True))
+        self.model.add(ConvLSTM2D(filters=64, kernel_size=(1, 3), activation='relu', return_sequences=True))
+        self.model.add(Dropout(0.50))
         self.model.add(ConvLSTM2D(filters=64, kernel_size=(1, 3), activation='relu'))
-        self.model.add(Dropout(0.30))
         self.model.add(Flatten())
         self.model.add(Dense(200, activation='relu'))
         self.model.add(Dense(n_outputs, activation='softmax'))

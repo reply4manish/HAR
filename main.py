@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # try convLSTM
     if conv_lstm_flag:
-        verbose, epochs, batch_size = 1, 30, 32
+        verbose, epochs, batch_size = 1, 100, 32
         conv_lstm = ConvLSTM(reader.data_x, reader.data_y, verbose, epochs, batch_size)
         conv_lstm.model_train("plots/training/" + "conv_lstm_ep30_bs32_filter64.png")
         conv_lstm.model_test()
